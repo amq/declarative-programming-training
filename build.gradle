@@ -5,6 +5,10 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
+plugins {
+    id 'pmd'
+}
+
 repositories {
     mavenCentral()
 }
@@ -32,8 +36,4 @@ sourceSets {
             srcDir 'src/test/resources'
         }
     }
-}
-
-plugins {
-    id 'pmd'
 }

@@ -33,3 +33,7 @@ sourceSets {
         }
     }
 }
+
+plugins {
+    id 'pmd'
+}

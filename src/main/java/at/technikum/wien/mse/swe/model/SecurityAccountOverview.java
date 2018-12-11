@@ -1,14 +1,31 @@
 package at.technikum.wien.mse.swe.model;
 
+import at.technikum.wien.mse.swe.MyAnnotation;
+
+import java.math.BigDecimal;
+
 /**
  * @author MatthiasKreuzriegler
  */
 public class SecurityAccountOverview {
 
+    @MyAnnotation(start = 40, length = 10, padding = "0")
     private String accountNumber;
+
+    @MyAnnotation(start = 50, length = 2, padding = "")
     private RiskCategory riskCategory;
-    private DepotOwner depotOwner;
-    private Amount balance;
+
+    @MyAnnotation(start = 52, length = 30, padding = "")
+    private String lastName;
+
+    @MyAnnotation(start = 82, length = 30, padding = "")
+    private String firstName;
+
+    @MyAnnotation(start = 112, length = 3, padding = "")
+    private String currency;
+
+    @MyAnnotation(start = 115, length = 17, padding = "")
+    private BigDecimal balance;
 
     public String getAccountNumber() {
         return accountNumber;
@@ -26,19 +43,35 @@ public class SecurityAccountOverview {
         this.riskCategory = riskCategory;
     }
 
-    public DepotOwner getDepotOwner() {
-        return depotOwner;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setDepotOwner(DepotOwner depotOwner) {
-        this.depotOwner = depotOwner;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public Amount getBalance() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Amount balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -46,8 +79,10 @@ public class SecurityAccountOverview {
     public String toString() {
         return "SecurityAccountOverview{" +
                 "accountNumber='" + accountNumber + '\'' +
-                ", riskCategory=" + riskCategory +
-                ", depotOwner=" + depotOwner +
+                ", riskCategory='" + riskCategory + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", currency='" + currency + '\'' +
                 ", balance=" + balance +
                 '}';
     }

@@ -1,21 +1,37 @@
 package at.technikum.wien.mse.swe.model;
 
+import at.technikum.wien.mse.swe.MyAnnotation;
+
+import java.math.BigDecimal;
+
 /**
  * @author MatthiasKreuzriegler
  */
 public class SecurityConfiguration {
 
-    private ISIN isin;
-    private RiskCategory riskCategory;
-    private String name;
-    private Amount yearHighest;
-    private Amount yearLowest;
+    @MyAnnotation(start = 40, length = 12, padding = "")
+    private String isin;
 
-    public ISIN getIsin() {
+    @MyAnnotation(start = 52, length = 2, padding = "")
+    private RiskCategory riskCategory;
+
+    @MyAnnotation(start = 54, length = 30, padding = "")
+    private String name;
+
+    @MyAnnotation(start = 84, length = 3, padding = "")
+    private String currency;
+
+    @MyAnnotation(start = 87, length = 10, padding = "")
+    private BigDecimal balanceHighest;
+
+    @MyAnnotation(start = 97, length = 10, padding = "")
+    private BigDecimal balanceLowest;
+
+    public String getIsin() {
         return isin;
     }
 
-    public void setIsin(ISIN isin) {
+    public void setIsin(String isin) {
         this.isin = isin;
     }
 
@@ -35,19 +51,39 @@ public class SecurityConfiguration {
         this.name = name;
     }
 
-    public Amount getYearHighest() {
-        return yearHighest;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setYearHighest(Amount yearHighest) {
-        this.yearHighest = yearHighest;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
-    public Amount getYearLowest() {
-        return yearLowest;
+    public BigDecimal getBalanceHighest() {
+        return balanceHighest;
     }
 
-    public void setYearLowest(Amount yearLowest) {
-        this.yearLowest = yearLowest;
+    public void setBalanceHighest(BigDecimal balanceHighest) {
+        this.balanceHighest = balanceHighest;
+    }
+
+    public BigDecimal getBalanceLowest() {
+        return balanceLowest;
+    }
+
+    public void setBalanceLowest(BigDecimal balanceLowest) {
+        this.balanceLowest = balanceLowest;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityConfiguration{" +
+                "isin='" + isin + '\'' +
+                ", riskCategory='" + riskCategory + '\'' +
+                ", name='" + name + '\'' +
+                ", currency='" + currency + '\'' +
+                ", balanceHighest=" + balanceHighest +
+                ", balanceLowest=" + balanceLowest +
+                '}';
     }
 }

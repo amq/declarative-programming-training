@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
+import at.technikum.wien.mse.swe.model.RiskCategory;
 import org.junit.Test;
 
 import at.technikum.wien.mse.swe.connector.SecurityConfigurationConnectorImpl;
-import at.technikum.wien.mse.swe.model.RiskCategory;
 import at.technikum.wien.mse.swe.model.SecurityConfiguration;
 
 /**
@@ -32,7 +32,7 @@ public class SecurityConfigurationConnectorTest {
     public void testRead_isin() throws URISyntaxException {
         SecurityConfiguration configuration = sut.read(Paths.get(ClassLoader.getSystemResource(FILENAME).toURI()));
         assertNotNull("isin not found", configuration.getIsin());
-        assertEquals("AT0000937503", configuration.getIsin().getValue());
+        assertEquals("AT0000937503", configuration.getIsin());
     }
 
     @Test
@@ -50,17 +50,17 @@ public class SecurityConfigurationConnectorTest {
     @Test
     public void testRead_YearHighest() throws URISyntaxException {
         SecurityConfiguration configuration = sut.read(Paths.get(ClassLoader.getSystemResource(FILENAME).toURI()));
-        assertNotNull("yearHighest not found", configuration.getYearHighest());
-        assertEquals("EUR", configuration.getYearHighest().getCurrency());
-        assertEquals(BigDecimal.valueOf(54.98d), configuration.getYearHighest().getValue());
+        assertNotNull("yearHighest not found", configuration.getBalanceHighest());
+        assertEquals("EUR", configuration.getCurrency());
+        assertEquals(BigDecimal.valueOf(54.98d), configuration.getBalanceHighest());
     }
 
     @Test
     public void testRead_YearLowest() throws URISyntaxException {
         SecurityConfiguration configuration = sut.read(Paths.get(ClassLoader.getSystemResource(FILENAME).toURI()));
-        assertNotNull("yearLowest not found", configuration.getYearLowest());
-        assertEquals("EUR", configuration.getYearLowest().getCurrency());
-        assertEquals(BigDecimal.valueOf(29.60d), configuration.getYearLowest().getValue());
+        assertNotNull("yearLowest not found", configuration.getBalanceLowest());
+        assertEquals("EUR", configuration.getCurrency());
+        assertEquals(BigDecimal.valueOf(29.60d), configuration.getBalanceLowest());
     }
 
 }

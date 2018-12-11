@@ -32,7 +32,7 @@ public class MyParser {
         field.setAccessible(true);
         try {
             if (field.getType() == BigDecimal.class) {
-                field.set(object, new BigDecimal(value));
+                field.set(object, BigDecimal.valueOf(Double.valueOf(value)));
             } else if (field.getType() == String.class) {
                 field.set(object, value);
             } else if (field.getType() == RiskCategory.class) {

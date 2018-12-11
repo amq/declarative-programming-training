@@ -20,24 +20,32 @@ public class MyParser {
 
         for (Field field : object.getClass().getDeclaredFields()) {
             if (field.isAnnotationPresent(MyAnnotation.class)) {
-                field.setAccessible(true);
                 annotation = field.getAnnotation(MyAnnotation.class);
-                value = stripStart(extract(content, annotation.start(), annotation.length()).trim(), annotation.padding());
-
-                try {
-                    if (field.getType() == BigDecimal.class) {
-                        field.set(object, new BigDecimal(value));
-                    } else if (field.getType() == String.class) {
-                        field.set(object, new String(value));
-                    } else if (field.getType() == RiskCategory.class) {
-                        field.set(object, RiskCategory.fromCode(value).orElseThrow(IllegalStateException::new));
-                    }
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                field.setAccessible(false);
+                value = stripStart(extract(content, annotation.start(), annotation.length()).trim(),
+                        annotation.padding());
+                setField(object, field, value);
             }
         }
+    }
+
+    private static void setField(Object object, Field field, String value) {
+        field.setAccessible(true);
+        try {
+            if (field.getType() == BigDecimal.class) {
+                field.set(object, new BigDecimal(value));
+            } else if (field.getType() == String.class) {
+                field.set(object, value);
+            } else if (field.getType() == RiskCategory.class) {
+                field.set(object, RiskCategory.fromCode(value).orElseThrow(IllegalStateException::new));
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        field.setAccessible(false);
+    }
+
+    private static String extract(String content, int startIndex, int length) {
+        return content.substring(startIndex, startIndex + length);
     }
 
     public static String readFileContent(Path file) {
@@ -48,9 +56,5 @@ public class MyParser {
             throw new SecurityAccountOverviewReadException(e);
         }
         return content;
-    }
-
-    private static String extract(String content, int startIndex, int length) {
-        return content.substring(startIndex, startIndex + length);
     }
 }
